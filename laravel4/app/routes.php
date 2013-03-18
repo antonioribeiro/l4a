@@ -17,3 +17,6 @@ Route::get('/', function()
 });
 
 Route::get('/billet/{customer}/{invoice}/{hash}',array('as'=>'billet', 'uses'=>'BankingController@showBillet'));
+
+Route::get('/billing',array('as'=>'billing', 'uses'=>'BillingController@index'));
+

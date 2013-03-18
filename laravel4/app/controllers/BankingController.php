@@ -15,6 +15,7 @@ class BankingController extends BaseController {
 	|
 
 	http://nas.escritorio.cys.cysdns.com:8080/l3a/billet/7/19800/30be95fd041dcd61c9075f0ab436cfa2
+	http://nas.escritorio.cys.cysdns.com:8080/l4a/billet/7/19800/30be95fd041dcd61c9075f0ab436cfa2
 
 	*/
 
@@ -100,9 +101,9 @@ class BankingController extends BaseController {
 		$bradesco->dadosboleto["valor_boleto"] = $bradesco->valor_boleto; 	// Valor do Boleto - REGRA: Com vírgula e sempre com duas casas depois da virgula
 
 		// DADOS DO SEU CLIENTE
-		$bradesco->dadosboleto["sacado"] = $this->charsetDecode($billet[0]->RAZAO_SOCIAL ." - ". $billet[0]->CPF_CNPJ);
-		$bradesco->dadosboleto["endereco1"] = $this->charsetDecode($billet[0]->LOGRADOURO .", ". $billet[0]->NUMERO . ($billet[0]->COMPLEMENTO ? " - ".$billet[0]->COMPLEMENTO : ""));
-		$bradesco->dadosboleto["endereco2"] = $this->charsetDecode($billet[0]->CIDADE ." - ". $billet[0]->ESTADO ." - ". $billet[0]->CEP);
+		$bradesco->dadosboleto["sacado"] = Helpers::charsEtdecode($billet[0]->RAZAO_SOCIAL ." - ". $billet[0]->CPF_CNPJ);
+		$bradesco->dadosboleto["endereco1"] = Helpers::charsetDecode($billet[0]->LOGRADOURO .", ". $billet[0]->NUMERO . ($billet[0]->COMPLEMENTO ? " - ".$billet[0]->COMPLEMENTO : ""));
+		$bradesco->dadosboleto["endereco2"] = Helpers::charsEtdecode($billet[0]->CIDADE ." - ". $billet[0]->ESTADO ." - ". $billet[0]->CEP);
 
 		// INFORMACOES PARA O CLIENTE
 		$bradesco->dadosboleto["demonstrativo1"] = "";
@@ -144,10 +145,6 @@ class BankingController extends BaseController {
 		$bradesco->items = $items;
 
 		return $bradesco->render();
-	}
-
-	function charsetDecode($s) {
-		return htmlentities($s,ENT_COMPAT,'ISO-8859-1');
 	}
 
 }

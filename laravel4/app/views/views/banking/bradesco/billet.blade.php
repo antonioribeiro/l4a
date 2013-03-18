@@ -33,7 +33,7 @@
 		<TITLE><?php echo $dadosboleto["identificacao"]; ?></TITLE>
 		<meta http-equiv=Content-Type content=text/html charset=ISO-8859-1>
 		<meta name="Generator" content="CyS" />
-		<base href="http://nas.escritorio.cys.cysdns.com:8080/l3a/" target="_blank">
+		<base href="{{ URL::to('/') }}">
 		<style type=text/css>
 			<!--.cp {  font: bold 10px Arial; color: black }
 			<!--.lo {  font: 16px Arial, Helvetica, sans-serif }
