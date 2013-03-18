@@ -36,6 +36,7 @@
 		<base href="http://nas.escritorio.cys.cysdns.com:8080/l3a/" target="_blank">
 		<style type=text/css>
 			<!--.cp {  font: bold 10px Arial; color: black }
+			<!--.lo {  font: 16px Arial, Helvetica, sans-serif }
 			<!--.ti {  font: 9px Arial, Helvetica, sans-serif }
 			<!--.ld { font: bold 15px Arial; color: #000000 }
 			<!--.ct { FONT: 9px "Arial Narrow"; COLOR: #000033 }
@@ -52,8 +53,9 @@
 				<td width="41">
 					<img src="img/logo_empresa.png">
 				</td>
-				<td class="ti" width="455">
-					<?php echo $dadosboleto["identificacao"]; ?><?php echo isset($dadosboleto["cpf_cnpj"]) ? "<br>".$dadosboleto["cpf_cnpj"] : '' ?><br>
+				<td class="lo" width="455">
+					<strong><?php echo $dadosboleto["identificacao"]; ?></strong>
+					<?php echo isset($dadosboleto["cpf_cnpj"]) ? "<br>".$dadosboleto["cpf_cnpj"] : '' ?><br>
 					<?php echo $dadosboleto["endereco"]; ?><br>
 					<?php echo $dadosboleto["cidade_uf"]; ?><br>
 				</td>
