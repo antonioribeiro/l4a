@@ -156,10 +156,10 @@ class Bradesco {
 
 
 	//Guarda inicial
-	?><img src=img/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-	src=img/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-	src=img/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-	src=img/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+	?><img src=assets/img/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+	src=assets/img/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+	src=assets/img/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+	src=assets/img/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
 	<?php
 	$texto = $valor ;
 	if((strlen($texto) % 2) <> 0){
@@ -178,7 +178,7 @@ class Bradesco {
 		  $f1 = $largo ;
 		}
 	?>
-		src=img/p.png width=<?php echo $f1?> height=<?php echo $altura?> border=0><img 
+		src=assets/img/p.png width=<?php echo $f1?> height=<?php echo $altura?> border=0><img 
 	<?php
 		if (substr($f,$i,1) == "0") {
 		  $f2 = $fino ;
@@ -186,16 +186,16 @@ class Bradesco {
 		  $f2 = $largo ;
 		}
 	?>
-		src=img/b.png width=<?php echo $f2?> height=<?php echo $altura?> border=0><img 
+		src=assets/img/b.png width=<?php echo $f2?> height=<?php echo $altura?> border=0><img 
 	<?php
 	  }
 	}
 
 	// Draw guarda final
 	?>
-	src=img/p.png width=<?php echo $largo?> height=<?php echo $altura?> border=0><img 
-	src=img/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-	src=img/p.png width=<?php echo 1?> height=<?php echo $altura?> border=0> 
+	src=assets/img/p.png width=<?php echo $largo?> height=<?php echo $altura?> border=0><img 
+	src=assets/img/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+	src=assets/img/p.png width=<?php echo 1?> height=<?php echo $altura?> border=0> 
 	  <?php
 	} //Fim da função
 
