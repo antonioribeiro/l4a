@@ -138,7 +138,7 @@ class BankingController extends BaseController {
 		$bradesco->dadosboleto["cpf_cnpj"] = "04.277.840/0001-57";
 		$bradesco->dadosboleto["endereco"] = "Antonio Carlos - (21) 8088-2233 e 9644-4722";
 		$bradesco->dadosboleto["cidade_uf"] = "Anselmo - (21) 8088-2229 e 9919-0326";
-		$bradesco->dadosboleto["cedente"] = "Escola do Legislativo do Estado do Rio de Janeiro";
+		$bradesco->dadosboleto["cedente"] = "CyS - Cypher Systems Consultoria e Desenvolvimento em Informática Ltda.";
 
 		$bradesco->viewName = 'views.banking.bradesco.billet';
 		$bradesco->items = $items;
