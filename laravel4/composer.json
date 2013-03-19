@@ -2,6 +2,7 @@
 	"require": {
 		"laravel/framework": "4.0.*",
     	"raveren/kint": "dev-master",
+    	"jasonlewis/expressive-date": "1.*",
     	"iron-io/iron_mq": "dev-master"
 	},
 	"autoload": {

@@ -2,11 +2,28 @@
 
 class BillingController extends BaseController {
 
+	private $date;
+
+	public function __construct()
+	{
+		$this->date = new ExpressiveDate;
+		$this->date->setDefaultDateFormat('d/m/Y');
+	}
+
 	public function index()
 	{
-		$bills = $this->getUnpaidBills();
+		$dueDate = Input::get('dueDate');
+		var_dump($_REQUEST); echo "<br>";
+		var_dump($_GET); echo "<br>";
+		var_dump($dueDate); echo "<br>";
+		var_dump(Input::all()); echo "<br>";
+		if (!$dueDate) {
+			$dueDate = $this->date->setDay(15);
+		}
 
-		return View::make('views.billing.index',array('bills' => $bills));
+		$bills = $this->getUnpaidBills($dueDate);
+
+		return View::make('views.billing.index',array('bills' => $bills, 'dueDate' => $dueDate));
 	}
 
 	public function sendBills()
@@ -46,6 +63,15 @@ class BillingController extends BaseController {
 		$bills = $this->getUnpaidBills();
 
 		$file = CNAB400::generateFile($bills);
+
+		/*$fileName = "remessa.txt";
+
+		header('Content-Type: application/txt'); 
+		header("Content-length: " . strlen($file)); 
+		header('Content-Disposition: attachment; filename="' . $fileName . '"'); 
+		echo $file;
+
+		exit();*/
 
 		return strlen($file)." - ".$file;
     }
