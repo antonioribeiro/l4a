@@ -41,6 +41,15 @@ class BillingController extends BaseController {
 											and co.data_vencimento = '2013-03-15 00:00:00'
 											order by cl.codigo_cliente, co.data_vencimento desc");		
 	}
+
+    public function buildFile() {
+		$bills = $this->getUnpaidBills();
+
+		$file = CNAB400::generateFile($bills);
+
+		return strlen($file)." - ".$file;
+    }
+
 }
 
 class SendBill {
