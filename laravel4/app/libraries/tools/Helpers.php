@@ -2,7 +2,7 @@
 
 class Helpers {
 	static function charsetDecode($s) {
-		return htmlentities($s,ENT_COMPAT,'ISO-8859-1');
+		return $s; //htmlentities($s,ENT_COMPAT,'ISO-8859-1');
 	}
 
 	static function toArray($obj) {

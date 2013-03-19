@@ -11,7 +11,7 @@ class FirebirdDriverConnector extends Database\Connectors\Connector implements D
 	{
         extract($config);
 
-        $dsn = "firebird:dbname=$host:$database";
+        $dsn = "firebird:dbname=$host:$database;charset=utf8";
 
         // The developer has the freedom of specifying a port for the Firebird database
         // or the default port (3306) will be used to make the connection by PDO.

@@ -90,6 +90,8 @@ class BankingController extends BaseController {
 		$bradesco->valor_cobrado = number_format($billet[0]->VALOR-$billet[0]->DESCONTO,2,".",""); // Valor - REGRA: Sem pontos na milhar e tanto faz com "." ou "," ou com 1 ou 2 ou sem casa decimal
 		$bradesco->valor_cobrado = str_replace(",", ".",$bradesco->valor_cobrado);
 		$bradesco->valor_boleto=number_format($bradesco->valor_cobrado+$bradesco->taxa_boleto, 2, ',', '');
+		$bradesco->valor_total = number_format($billet[0]->VALOR,2,".",""); // Valor - REGRA: Sem pontos na milhar e tanto faz com "." ou "," ou com 1 ou 2 ou sem casa decimal
+		$bradesco->desconto = number_format($billet[0]->DESCONTO,2,".",""); // Valor - REGRA: Sem pontos na milhar e tanto faz com "." ou "," ou com 1 ou 2 ou sem casa decimal
 
 		$bradesco->dadosboleto = array();
 		
@@ -98,10 +100,14 @@ class BankingController extends BaseController {
 		$bradesco->dadosboleto["data_vencimento"] = date("d/m/Y", strtotime( $billet[0]->DATA_VENCIMENTO ) ); // Data de Vencimento do Boleto - REGRA: Formato DD/MM/AAAA
 		$bradesco->dadosboleto["data_documento"] = date("d/m/Y", strtotime( $billet[0]->DATA_DOCUMENTO ) ); // Data de emissão do Boleto
 		$bradesco->dadosboleto["data_processamento"] =  date("d/m/Y", strtotime( $billet[0]->DATA_DOCUMENTO ) ); // Data de processamento do boleto (opcional)
+		$bradesco->dadosboleto["valor_total"] = $bradesco->valor_total;
+		$bradesco->dadosboleto["desconto"] = $bradesco->desconto;
 		$bradesco->dadosboleto["valor_boleto"] = $bradesco->valor_boleto; 	// Valor do Boleto - REGRA: Com vírgula e sempre com duas casas depois da virgula
 
 		// DADOS DO SEU CLIENTE
 		$bradesco->dadosboleto["sacado"] = Helpers::charsEtdecode($billet[0]->RAZAO_SOCIAL ." - ". $billet[0]->CPF_CNPJ);
+		$bradesco->dadosboleto["razao_social_cliente"] = Helpers::charsEtdecode($billet[0]->RAZAO_SOCIAL);
+		$bradesco->dadosboleto["cpf_cnpj_cliente"] =  $billet[0]->CPF_CNPJ;
 		$bradesco->dadosboleto["endereco1"] = Helpers::charsetDecode($billet[0]->LOGRADOURO .", ". $billet[0]->NUMERO . ($billet[0]->COMPLEMENTO ? " - ".$billet[0]->COMPLEMENTO : ""));
 		$bradesco->dadosboleto["endereco2"] = Helpers::charsEtdecode($billet[0]->CIDADE ." - ". $billet[0]->ESTADO ." - ". $billet[0]->CEP);
 

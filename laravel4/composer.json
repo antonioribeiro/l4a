@@ -1,7 +1,8 @@
 {
 	"require": {
 		"laravel/framework": "4.0.*",
-    	"raveren/kint": "dev-master"
+    	"raveren/kint": "dev-master",
+    	"iron-io/iron_mq": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

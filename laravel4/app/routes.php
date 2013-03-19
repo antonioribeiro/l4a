@@ -20,3 +20,4 @@ Route::get('/billet/{customer}/{invoice}/{hash}',array('as'=>'billet', 'uses'=>'
 
 Route::get('/billing',array('as'=>'billing', 'uses'=>'BillingController@index'));
 
+Route::get('/billing/send',array('as'=>'sendBills', 'uses'=>'BillingController@sendBills'));
