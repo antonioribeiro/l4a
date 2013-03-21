@@ -18,9 +18,13 @@ Route::get('/', function()
 
 Route::get('/billet/{customer}/{invoice}/{hash}',array('as'=>'billet', 'uses'=>'BankingController@showBillet'));
 
-Route::get('/billing',array('as'=>'billing', 'uses'=>'BillingController@index'));
+Route::get('/billet/{customer}/{invoice}/{hash}/send',array('as'=>'sendBillet', 'uses'=>'BillingController@sendBillet'));
 
-Route::get('/billing/send',array('as'=>'sendBills', 'uses'=>'BillingController@sendBills'));
+Route::get('/billing',array('as'=>'billingGET', 'uses'=>'BillingController@index'));
+Route::post('/billing',array('as'=>'billingPOST', 'uses'=>'BillingController@index'));
+Route::get('/billing/filter/{date}',array('as'=>'billingFilter', 'uses'=>'BillingController@filter'));
+
+Route::post('/billing/send',array('as'=>'sendBills', 'uses'=>'BillingController@sendBills'));
 
 Route::get('/billing/buildFile',array('as'=>'buildFile', 'uses'=>'BillingController@buildFile'));
 

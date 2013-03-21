@@ -19,4 +19,16 @@ class Helpers {
 		return $new;
 	}
 
+	static function englishDate($date) {
+		list($d,$m,$y) = split('[/.-]',$date);
+		return "$m/$d/$y";
+	}
+
+	static function brazilianDate($date) {
+		list($d,$m,$y) = split('[/.-]',$date);
+		echo "----> $d/$m/$y <br>";
+		
+		return "$d/$m/$y";
+	}
+
 }

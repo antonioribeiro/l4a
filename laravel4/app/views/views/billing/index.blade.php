@@ -1,18 +1,63 @@
-{{ htmlentities('Boletos do mês para enviar') }}<br>
-<br>
+@extends('layouts.main')
 
-<form method="GET" action="{{ URL::to('billing') }}">
-	Data vencimento: 
-		<input id="dueDate" name="dueDate" type="text" value="{{$dueDate}}">
-		<input type="submit" value="Alterar vencimento">
-		<input id="hid" name="hid" type="hidden" value="HHHHHHHHHHHHHH">
-</form>
+@section('content')
+	<h1>Cobrança</h1>
+		<br>
+		<div class="text-center">
+			<form method="POST" action="{{ URL::to('billing') }}">
+				<fieldset>
+					<input type="text" class="input-medium search-query" name="dueDate" id="dueDate" placeholder="Vencimento" value="{{$dueDate}}">
+	  				<button type="submit" class="btn">Filtrar</button>
+				</fieldset>
+			</form>
+			<h6><?php 
+				$records = 0;
+			 	foreach($dueDateList as $date) {
+					$records++;
+					$date = new ExpressiveDate($date->DATA_VENCIMENTO);
+					$date->setDefaultDateFormat('d-m-Y');
+					//echo '<form method="POST" action="'.URL::to('/billing/filter/'.$date).'">';
+					echo '<button class="btn btn-mini btn-primary" type="submit" formmethod="POST" onclick="document.location=\''.URL::to('/billing/filter/'.$date).'\'"">'.$date.'</button>&nbsp;';
+					//echo '</form>';
+					if($records > 10) {
+						break;
+					}
+				}
+			?></h6>
+		</div>
+		<br>
 
-@foreach($bills as $bill)
-	{{ Helpers::charsEtdecode($bill->RAZAO_SOCIAL) . " - " . date("d/m/Y", strtotime($bill->DATA_VENCIMENTO))  . " - " . $bill->EMAIL}} - <a href="{{ URL::to('http://cysmail.com/billet/'.$bill->CODIGO_CLIENTE.'/'.$bill->NUMERO_DOCUMENTO.'/'.md5($bill->VALOR)) }}">Boleto</a><br>
-@endforeach
-<br>
+		<h4>Boletos em aberto com vencimento em {{$dueDate}}</h4>
+		<section id="tables">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Empresa</th>
+						<th>Referência</th>
+						<th>Vencimento</th>
+						<th>Valor</th>
+						<th>Link</th>
+						<th>Ações</th>
+					</tr>
+				</thead>			
+				@foreach($bills as $bill)
+					<tr>
+						<td><p>{{ Helpers::charsEtdecode($bill->RAZAO_SOCIAL) . ($bill->RAZAO_SOCIAL != $bill->NOME_FANTASIA ? ' ('.$bill->NOME_FANTASIA.')' : '') }}</p></td>
+						<td class="text-center"><p>{{ date("d-m-Y", strtotime($bill->DATA_DOCUMENTO)) }}</p></td>
+						<td class="text-center"><p>{{ date("d-m-Y", strtotime($bill->DATA_VENCIMENTO)) }}</p></td>
+						<td><p>{{ $bill->VALOR }}</p></td>
+						<td class="text-center"><p><a href="{{ URL::to('/billet/'.$bill->CODIGO_CLIENTE.'/'.$bill->NUMERO_DOCUMENTO.'/'.md5($bill->VALOR)) }}">Boleto</a></p></td>
+						<td class="text-center"><button class="btn btn-mini btn-primary" type="submit" formmethod="GET" onclick="document.location='{{URL::to('/billet/'.$bill->CODIGO_CLIENTE.'/'.$bill->NUMERO_DOCUMENTO.'/'.md5($bill->VALOR).'/send')}}'">Enviar</button></td>
 
-<form method="GET" action="{{ URL::to('/billing/send') }}">
-	<input type="submit" value="Enviar todos os boletos com vencimento em {{$dueDate}} por e-mail">
-</form>
+					</tr>
+				@endforeach
+			</table>
+		</section>
+
+		<br>
+
+		<form method="POST" action="{{ URL::to('/billing/send') }}">
+			<button type="submit" class="btn btn-danger">Enviar todos os boletos com vencimento em {{$dueDate}} por e-mail</button>
+			<input id="dueDate" name="dueDate" type="hidden" size="12" value="{{$dueDate}}">
+		</form>
+@stop
