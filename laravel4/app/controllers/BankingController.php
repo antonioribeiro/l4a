@@ -141,7 +141,7 @@ class BankingController extends BaseController {
 		$bradesco->dadosboleto["carteira"] = "09";  // Código da Carteira: pode ser 06 ou 03
 
 		// SEUS DADOS
-		$bradesco->dadosboleto["identificacao"] = "CyS";
+		$bradesco->dadosboleto["identificacao"] = "CyS - Cypher Systems";
 		$bradesco->dadosboleto["cpf_cnpj"] = "04.277.840/0001-57";
 		$bradesco->dadosboleto["endereco"] = "Antonio Carlos - (21) 8088-2233 e 9644-4722";
 		$bradesco->dadosboleto["cidade_uf"] = "Anselmo - (21) 8088-2229 e 9919-0326";

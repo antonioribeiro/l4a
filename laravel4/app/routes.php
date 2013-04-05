@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('views.home');
+	return Redirect::to('http://www.cys.com.br');
 });
 
 Route::get('/billet/{customer}/{invoice}/{hash}',array('as'=>'billet', 'uses'=>'BankingController@showBillet'));

@@ -7,23 +7,39 @@
 			<form method="POST" action="{{ URL::to('billing') }}">
 				<fieldset>
 					<input type="text" class="input-medium search-query" name="dueDate" id="dueDate" placeholder="Vencimento" value="{{$dueDate}}">
-	  				<button type="submit" class="btn">Filtrar</button>
+					<button type="submit" class="btn">Filtrar</button>
 				</fieldset>
 			</form>
-			<h6><?php 
-				$records = 0;
-			 	foreach($dueDateList as $date) {
-					$records++;
-					$date = new ExpressiveDate($date->DATA_VENCIMENTO);
-					$date->setDefaultDateFormat('d-m-Y');
-					//echo '<form method="POST" action="'.URL::to('/billing/filter/'.$date).'">';
-					echo '<button class="btn btn-mini btn-primary" type="submit" formmethod="POST" onclick="document.location=\''.URL::to('/billing/filter/'.$date).'\'"">'.$date.'</button>&nbsp;';
-					//echo '</form>';
-					if($records > 10) {
-						break;
-					}
-				}
-			?></h6>
+
+			<table class="table table-striped table-bordered center">
+				<thead>
+					<tr>
+						<th><h4 class="text-center">Cobranças em aberto por data de vencimento</h4></th>
+					</tr>
+				</thead>
+				<tr>
+					<td><p class="text-center">
+						<?php 
+							$records = 0;
+							foreach($dueDateList as $date) {
+								$records++;
+								$date = new ExpressiveDate($date->DATA_VENCIMENTO);
+								$date->setDefaultDateFormat('d-m-Y');
+								//echo '<form method="POST" action="'.URL::to('/billing/filter/'.$date).'">';
+								echo '<button class="btn btn-mini btn-primary" type="submit" formmethod="POST" onclick="document.location=\''.URL::to('/billing/filter/'.$date).'\'"">'.$date.'</button>&nbsp;';
+								//echo '</form>';
+								if($records == 11) {
+									echo "</p><p class=\"text-center\">";
+								}
+								if($records == 22) {
+									break;
+								}
+							}
+						?>
+						</p>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<br>
 
