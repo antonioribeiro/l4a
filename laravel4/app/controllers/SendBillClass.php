@@ -5,7 +5,7 @@ class SendBill {
 	{
 
 		$bill = $data['bill'];
-		
+
 		$other = DB::select("select 
 											cl.codigo_cliente
 										,	cl.razao_social
@@ -25,10 +25,11 @@ class SendBill {
 
 		Mail::send('views.billing.email', array('bill' => Helpers::toArray($bill), 'other' => Helpers::toArray($other)), function($m) use ($bill)
 		{
-			$bill->EMAIL="antoniocarlos@cys.com.br";
-			$addresses = array($bill->EMAIL);
+			$bill->EMAIL="antoniocarlos@cys.com.br"; // for testing purposes
+			$addresses = array($bill->EMAIL); // for testing purposes
 
-			//$addresses=split ('[,;]', $bill->EMAIL); $m->cc('cobranca@cys.com.br');
+			// just comment the following line to test:
+			$addresses=split ('[,;]', $bill->EMAIL); $m->cc('cobranca@cys.com.br');
 			
 			$m->from('cobranca@cys.com.br', 'Cobrança CyS');
 			$m->subject('[CyS - Cobrança] '.$bill->RAZAO_SOCIAL.' - Boleto com vencimento em 22/03/2013');
