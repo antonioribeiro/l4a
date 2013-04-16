@@ -3,7 +3,9 @@
 class SendBill {
 	public function fire($job, $data)
 	{
-		$bill = $data['bill'];
+
+		$bill = $data['bill'][0];
+
 		$other = DB::select("select 
 											cl.codigo_cliente
 										,	cl.razao_social
@@ -17,7 +19,7 @@ class SendBill {
 									join CA_CLIENTE cl on cl.CODIGO_CLIENTE = co.CODIGO_CLIENTE
 									where co.DATA_PAGAMENTO is null and co.DATA_CANCELAMENTO is null
 									and co.data_vencimento < '2013-03-15 00:00:00'
-									and cl.codigo_cliente = ".$data['bill']->CODIGO_CLIENTE."
+									and cl.codigo_cliente = ".$bill->CODIGO_CLIENTE."
 									order by cl.codigo_cliente, co.data_vencimento desc");
 
 

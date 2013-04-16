@@ -59,6 +59,7 @@ class BillingController extends BaseController {
 
 	private function sendBillEmail($bill) {
 		Queue::push('SendBill', array('bill' => $bill));
+		$bill = $bill[0];
 		echo "Sending billing mail to $bill->RAZAO_SOCIAL...<br>";
 	}
 
@@ -126,7 +127,7 @@ class BillingController extends BaseController {
 		if(!($bill = $this->locateBill($customer, $invoice, $hash))) {
 			return View::make('views.billing.billNotFound');
 		} else {
-			//$this->sendBillEmail($bill)
+			$this->sendBillEmail($bill);
 			return View::make('views.billing.billSent');
 		}
 	}

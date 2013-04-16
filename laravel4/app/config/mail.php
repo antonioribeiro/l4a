@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('cobranca@cys.com.br' => null, 'CobranÃ§a CyS' => null),
+	'from' => array('cobranca@cys.com.br' => null, 'Cobrança CyS' => null),
 
 	/*
 	|--------------------------------------------------------------------------
