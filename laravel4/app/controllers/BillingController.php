@@ -58,8 +58,8 @@ class BillingController extends BaseController {
 	}
 
 	private function sendBillEmail($bill) {
+		if(is_array($bill)) $bill = $bill[0]; /// got just one bill
 		Queue::push('SendBill', array('bill' => $bill));
-		$bill = $bill[0];
 		echo "Sending billing mail to $bill->RAZAO_SOCIAL...<br>";
 	}
 

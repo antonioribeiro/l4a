@@ -4,7 +4,7 @@ class SendBill {
 	public function fire($job, $data)
 	{
 
-		$bill = $data['bill'][0];
+		$bill = $data['bill'];
 
 		$other = DB::select("select 
 											cl.codigo_cliente
@@ -26,12 +26,12 @@ class SendBill {
 		Mail::send('views.billing.email', array('bill' => Helpers::toArray($bill), 'other' => Helpers::toArray($other)), function($m) use ($bill)
 		{
 			$bill->EMAIL="antoniocarlos@cys.com.br";
+			$addresses = array($bill->EMAIL);
 
-			$addresses=split ('[,;]', $bill->EMAIL);
-
+			//$addresses=split ('[,;]', $bill->EMAIL); $m->cc('cobranca@cys.com.br');
+			
 			$m->from('cobranca@cys.com.br', 'Cobrança CyS');
 			$m->subject('[CyS - Cobrança] '.$bill->RAZAO_SOCIAL.' - Boleto com vencimento em 22/03/2013');
-			//$m->cc('cobranca@cys.com.br');
 			$m->addReplyTo('relacionamento@cys.com.br');
 
 			foreach ($addresses as $key => $address) {
