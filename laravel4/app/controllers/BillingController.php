@@ -40,7 +40,7 @@ class BillingController extends BaseController {
 	{
 		return $this->showBills($dueDate);
 	}
-	
+
 	public function sendBills()
 	{
 		$dueDate = $this->getDueDate();
@@ -59,8 +59,13 @@ class BillingController extends BaseController {
 
 	private function sendBillEmail($bill) {
 		if(is_array($bill)) $bill = $bill[0]; /// got just one bill
+
+		Log::error("Sending bill to $bill->RAZAO_SOCIAL.");
+
 		Queue::push('SendBill', array('bill' => $bill));
 		echo "Sending billing mail to $bill->RAZAO_SOCIAL...<br>";
+
+		Log::error("SENT! Bill to $bill->RAZAO_SOCIAL.");
 	}
 
 	public function getUnpaidBills($dueDate) {
