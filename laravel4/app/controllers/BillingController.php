@@ -40,7 +40,7 @@ class BillingController extends BaseController {
 	{
 		return $this->showBills($dueDate);
 	}
-
+	
 	public function sendBills()
 	{
 		$dueDate = $this->getDueDate();

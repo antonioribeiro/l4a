@@ -5,7 +5,7 @@ class SendBill {
 	{
 
 		$bill = $data['bill'];
-
+		
 		$other = DB::select("select 
 											cl.codigo_cliente
 										,	cl.razao_social
