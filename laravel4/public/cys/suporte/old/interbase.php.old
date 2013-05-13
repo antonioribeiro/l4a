@@ -1,0 +1,70 @@
+<?
+  require_once "conf.php"; /// este arquivo é o conf do projeto
+
+  function ConectaFB() {
+  global $debug,
+         $database_handle,
+         $interbase_host,
+         $interbase_database,
+         $interbase_username,
+         $interbase_password;
+
+    $database_handle = ibase_connect($interbase_host.":".$interbase_database, $interbase_username, $interbase_password);
+
+    return $database_handle;
+  }
+
+  function ExecSQL($SQL_Query) {
+  global $debug, $database_handle;
+
+    if ($debug) {echo "SQL == ".$SQL_Query."<BR><BR>";}
+
+    $sth = ibase_query ($database_handle, $SQL_Query);
+
+    return $sth;
+  }
+
+  function myGetDate() {
+  global $debug;
+
+    $my_t=getdate(date("U"));
+    print("xxxxxxxxxxxxx DATA: $my_t[weekday], $my_t[month] $my_t[mday], $my_t[year]");
+    
+    $SQL = "select cast('NOW' as DATE) DATA, cast('NOW' as TIME) HORA from RDB\$GENERATORS";
+    $sth = ExecSQL($SQL);
+    $row = ibase_fetch_object($sth);
+
+    Return $row->DATA;
+  }
+
+  function myGetDateTime() {
+  global $debug;
+
+    $SQL = "select cast('NOW' as DATE) DATA, cast('NOW' as TIME) HORA from RDB\$GENERATORS";
+    $sth = ExecSQL($SQL);
+    $row = ibase_fetch_object($sth);
+
+    Return $row->DATA.' '.$row->HORA;
+  }
+
+  function myGetTime() {
+  global $debug;
+
+    $SQL = "select cast('NOW' as DATE) DATA, cast('NOW' as TIME) HORA from RDB\$GENERATORS";
+    $sth = ExecSQL($SQL);
+    $row = ibase_fetch_object($sth);
+
+    Return $row->HORA;
+  }
+
+  function TrataTextoSQL($texto) {
+  global $debug;
+
+    if (!$texto) {
+      Return "";
+    } else {
+      Return preg_replace("/'/", '|', $texto);
+    }
+  }
+
+?>
